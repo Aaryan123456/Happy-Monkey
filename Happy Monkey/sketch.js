@@ -20,15 +20,15 @@ function preload(){
 
 
 function setup() {
-  createCanvas(450,450);
+  createCanvas(windowWidth,windowHeight);
   
   //creating monkey
-   monkey=createSprite(80,315,20,20);
+   monkey=createSprite(80,height-70,20,20);
    monkey.addAnimation("moving", monkey_running);
   // monkey.addImage(bananaImage)
    monkey.scale=0.1
   
-  ground = createSprite(400,350,950,10);
+  ground = createSprite(width/2,height,width,5);
   ground.velocityX=-4;
   console.log(ground.x)
 
@@ -55,8 +55,9 @@ function draw() {
    text("Survival Time: "+ survivalTime, 100,50);
 
     
-    if(keyDown("space")&& monkey.y>= 305) {
-      monkey.velocityY = -15;
+  if((touches.length > 0 || keyDown("SPACE")) && monkey.y  >= height-60){
+      monkey.velocityY = -10;
+       touches = [];
     }
   
    monkey.velocityY = monkey.velocityY + 0.8;
@@ -98,8 +99,8 @@ function draw() {
 function spawnFood() {
   //write code here to spawn the Food
   if (frameCount % 80 === 0) {
-    banana = createSprite(450,305,40,10);
-    banana.y = random(120,200);    
+    banana = createSprite(width+20,height-300,40,10);
+    banana.y = Math.round(random(100,900));   
     banana.velocityX = -5;
     
      //assign lifetime to the variable
@@ -117,12 +118,12 @@ function spawnFood() {
 
 function spawnObstacles() {
   if(frameCount % 300 === 0) {
-    obstacle = createSprite(450,320,10,40);
+    obstacle = createSprite(450,height-15,10,40);
     obstacle.velocityX = -6;
     
     //add image to the obstacle 
     obstacle.addImage(obstaceImage);
-    obstacle.scale=0.13;
+    obstacle.scale=0.11;
     
     //lifetime to the obstacle     
     obstacle.lifetime = 300;
